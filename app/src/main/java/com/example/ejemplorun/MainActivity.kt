@@ -14,24 +14,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.room.Room
+import com.example.ejemplorun.DAL.TaskDatabase
+import com.example.ejemplorun.DAL.TasksDao
+import com.example.ejemplorun.DAL.TaskEntity
 import com.example.ejemplorun.ui.theme.EjemploRunTheme
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
-    lateinit var basedatos: TareasDatabase
+    companion object{
+    lateinit var basedatos: TaskDatabase
     lateinit var todos: List<TaskEntity>
-
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        basedatos = Room.databaseBuilder(this, TareasDatabase::class.java, "tareas-db").build()
+        basedatos = Room.databaseBuilder(this, TaskDatabase::class.java, "tareas-db").build()
 
         runBlocking {
             launch {
-                todos = basedatos.tareaDao().getAll()
+                todos = basedatos.tasksDao().getAll()
             }
             val tarea = TaskEntity(name = "tarea 1")
-            basedatos.tareaDao().insert(tarea)
+            basedatos.tasksDao().insert(tarea)
         }
 
         enableEdgeToEdge()

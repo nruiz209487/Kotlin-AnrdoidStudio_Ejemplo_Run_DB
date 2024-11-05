@@ -1,4 +1,4 @@
-package com.example.ejemplorun
+package com.example.ejemplorun.DAL
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface TareaDao {
+interface TasksDao {
 
     @Query("SELECT * FROM task_entity")
     fun getAll(): List<TaskEntity>
